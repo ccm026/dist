@@ -1,7 +1,10 @@
 package com.piproject.DistanceController;
 
 import com.pi4j.io.gpio.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 public class Main {
 
     private static GpioPinDigitalOutput sensorTriggerPin ;
@@ -10,9 +13,7 @@ public class Main {
 
     final static GpioController gpio = GpioFactory.getInstance();
 
-    public static void main(String [] args) throws InterruptedException{
-        new Main().run();
-    }
+    @RequestMapping("/")
     public void run() throws InterruptedException{
         sensorTriggerPin =  gpio.provisionDigitalOutputPin(RaspiPin.GPIO_00); // Trigger pin as OUTPUT
         sensorEchoPin = gpio.provisionDigitalInputPin(RaspiPin.GPIO_02,PinPullResistance.PULL_DOWN); // Echo pin as INPUT
@@ -27,7 +28,7 @@ public class Main {
                 while(sensorEchoPin.isLow()){ //Wait until the ECHO pin gets HIGH
 
                 }
-                long startTime= System.nanoTime(); // Store the surrent time to calculate ECHO pin HIGH time.
+                long startTime= System.nanoTime(); // Store the current time to calculate ECHO pin HIGH time.
                 while(sensorEchoPin.isHigh()){ //Wait until the ECHO pin gets LOW
 
                 }
