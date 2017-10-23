@@ -2,8 +2,7 @@ package com.piproject.DistanceController;
 
 import com.pi4j.io.gpio.*;
 
-public class main {
-
+public class Main {
 
     private static GpioPinDigitalOutput sensorTriggerPin ;
     private static GpioPinDigitalInput sensorEchoPin ;
@@ -12,11 +11,11 @@ public class main {
     final static GpioController gpio = GpioFactory.getInstance();
 
     public static void main(String [] args) throws InterruptedException{
-        new main().run();
+        new Main().run();
     }
     public void run() throws InterruptedException{
-        sensorTriggerPin =  gpio.provisionDigitalOutputPin(RaspiPin.GPIO_00);
-        sensorEchoPin = gpio.provisionDigitalInputPin(RaspiPin.GPIO_02,PinPullResistance.PULL_DOWN);
+        sensorTriggerPin =  gpio.provisionDigitalOutputPin(RaspiPin.GPIO_00); // Trigger pin as OUTPUT
+        sensorEchoPin = gpio.provisionDigitalInputPin(RaspiPin.GPIO_02,PinPullResistance.PULL_DOWN); // Echo pin as INPUT
 
         while(true){
             try {
