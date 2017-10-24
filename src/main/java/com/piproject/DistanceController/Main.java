@@ -1,9 +1,6 @@
 package com.piproject.DistanceController;
 
 import com.pi4j.io.gpio.*;
-import com.piproject.DistanceController.DataController.SendDataUsingMQTT;
-import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,15 +35,10 @@ public class Main {
                 long endTime= System.nanoTime(); // Store the echo pin HIGH end time to calculate ECHO pin HIGH time.
 
                 Distance =((((endTime-startTime)/1e3)/2) / 29.1); //Printing out the distance in cm
-                SendDataUsingMQTT mqtt = new SendDataUsingMQTT();
-                mqtt.publish("field1=10");
+                System.out.println("Distance: "+Distance+"cm");
                 Thread.sleep(1000);
 
             } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (MqttPersistenceException e) {
-                e.printStackTrace();
-            } catch (MqttException e) {
                 e.printStackTrace();
             }
         }
